@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+# Rhino source models (~90 MB) stay out of git; the baked web model in public/model/ is committed
+*.3dm
+*.3dmbak

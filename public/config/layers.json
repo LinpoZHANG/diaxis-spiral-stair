@@ -1,0 +1,571 @@
+{
+  "_readme": "Layer configuration. After re-organising layers in Rhino, edit this file only (no code changes). Layers are matched by full Rhino path (e.g. GroundFloor::glass).",
+  "_stairGroups": "Order = list order in the panel. tier = vertical explode level (members of one tier rise together). hiddenWhenAssembled = inner layers hidden when the stair is assembled. finish: microcement / oak (grain radial|tangential) / floor / room / wood / plaster / steel / glass / plain. spec = text shown when a part is picked; tbc = item still to be confirmed. coat = applied finish (e.g. micro-cement): in the construction sequence it fades in place instead of being installed panel by panel. seamless = weld shading normals across block joints. assembledAs = when the stair is assembled, show this (hidden) layer with that group's finish as a backing so joints never show through. explode: {dir: up | down | lateral (away from the stair, each side its own way) | zone (soffit parts down, wall-head parts up, wall panels sideways) | none, dist: mm}. mergeSides: merge all pieces into one per side of the stair (handrail).",
+  "hiddenLayers": [
+    "hide",
+    "AccurateRedraw",
+    "wanchengmian",
+    "图层 01"
+  ],
+  "stairGroups": [
+    {
+      "id": "step",
+      "name": "Steel treads",
+      "sub": "Folded tread plates & joints",
+      "layers": [
+        "STAIR::layer1_Steel_Tread"
+      ],
+      "finish": "steel",
+      "color": "#5f6873",
+      "metalness": 0.85,
+      "roughness": 0.32,
+      "hiddenWhenAssembled": true,
+      "tier": 0,
+      "spec": "Folded steel tread plates with folded joints between steps (DC2).",
+      "explode": {
+        "dir": "none",
+        "dist": 0
+      },
+      "envIntensity": 1.6
+    },
+    {
+      "id": "string",
+      "name": "Steel strings",
+      "sub": "Strings",
+      "layers": [
+        "STAIR::layer3_Steel_String"
+      ],
+      "finish": "steel",
+      "color": "#56606b",
+      "metalness": 0.85,
+      "roughness": 0.32,
+      "tier": 0,
+      "spec": "Steel strings carrying the folded treads (DC2).",
+      "explode": {
+        "dir": "none",
+        "dist": 0
+      },
+      "envIntensity": 1.6
+    },
+    {
+      "id": "slabbase",
+      "name": "Steel supports",
+      "sub": "Top support & base plates",
+      "layers": [
+        "STAIR::layer13_Steel_SlabBase"
+      ],
+      "finish": "steel",
+      "color": "#5a646f",
+      "metalness": 0.85,
+      "roughness": 0.32,
+      "tier": 0,
+      "tbc": true,
+      "spec": "Top support angle at the ground-floor slab and base plates at the basement slab. Continuous angle vs. one support per string, and the string-to-angle connection, TBC with the structural engineer.",
+      "explode": {
+        "dir": "none",
+        "dist": 0
+      },
+      "envIntensity": 1.6
+    },
+    {
+      "id": "posts",
+      "name": "Steel columns",
+      "sub": "50 mm columns",
+      "layers": [
+        "STAIR::layer2_Steel_Post"
+      ],
+      "finish": "steel",
+      "color": "#66707b",
+      "metalness": 0.85,
+      "roughness": 0.32,
+      "tier": 0,
+      "spec": "50 mm steel columns each side of the stair, fixing ground for the balustrade walls (DC2).",
+      "explode": {
+        "dir": "none",
+        "dist": 0
+      },
+      "envIntensity": 1.6
+    },
+    {
+      "id": "timber",
+      "name": "Timber battens",
+      "sub": "Beside the columns",
+      "layers": [
+        "STAIR::layer6_Timber"
+      ],
+      "finish": "wood",
+      "color": "#ead3a1",
+      "roughness": 0.8,
+      "hiddenWhenAssembled": true,
+      "tier": 1,
+      "spec": "Timber battens bolted to the steel columns as fixing ground (DC2 p.06).",
+      "explode": {
+        "dir": "zone",
+        "dist": 350
+      },
+      "endColor": "#c98d52"
+    },
+    {
+      "id": "treadply",
+      "name": "Tread plywood",
+      "sub": "Tread & riser substrate",
+      "layers": [
+        "STAIR::layer10_PLY_Tread"
+      ],
+      "finish": "ply",
+      "color": "#e2bb9f",
+      "roughness": 0.8,
+      "hiddenWhenAssembled": true,
+      "tier": 2,
+      "spec": "Plywood substrate to the timber-clad treads and risers.",
+      "explode": {
+        "dir": "up",
+        "dist": 350
+      }
+    },
+    {
+      "id": "ply",
+      "name": "Plywood",
+      "sub": "12 mm wall panels & capping",
+      "layers": [
+        "STAIR::layer8_PLY_Panel"
+      ],
+      "finish": "ply",
+      "color": "#e9c4a9",
+      "roughness": 0.8,
+      "hiddenWhenAssembled": true,
+      "tier": 2,
+      "spec": "12 mm plywood panels to both faces of the wall, and plywood capping over the steel cap (Detail 02).",
+      "explode": {
+        "dir": "zone",
+        "dist": 700
+      }
+    },
+    {
+      "id": "soffit",
+      "name": "Soffit timber",
+      "sub": "Underside of the stair",
+      "layers": [
+        "STAIR::layer7_SoffitTimber"
+      ],
+      "finish": "wood",
+      "color": "#ead3a1",
+      "roughness": 0.8,
+      "tier": 1,
+      "spec": "Timber framing to the stair soffit.",
+      "explode": {
+        "dir": "zone",
+        "dist": 350
+      },
+      "endColor": "#c98d52"
+    },
+    {
+      "id": "steelcap",
+      "name": "Steel cap",
+      "sub": "Balustrade head",
+      "layers": [
+        "STAIR::layer4_Steel_Balustrade"
+      ],
+      "finish": "steel",
+      "color": "#626c77",
+      "metalness": 0.85,
+      "roughness": 0.32,
+      "hiddenWhenAssembled": true,
+      "tier": 0,
+      "spec": "Steel cap along the head of the balustrade walls (DC2 p.06).",
+      "explode": {
+        "dir": "up",
+        "dist": 1100
+      },
+      "envIntensity": 1.6
+    },
+    {
+      "id": "railpost",
+      "name": "Balustrade posts",
+      "sub": "Steel posts on the cap",
+      "layers": [
+        "STAIR::layer5_Steel_Handrail"
+      ],
+      "finish": "steel",
+      "color": "#6b7580",
+      "metalness": 0.85,
+      "roughness": 0.32,
+      "tier": 0,
+      "spec": "Steel posts on the balustrade cap carrying the handrail.",
+      "explode": {
+        "dir": "up",
+        "dist": 1300
+      },
+      "envIntensity": 1.6
+    },
+    {
+      "id": "tread",
+      "name": "Timber treads",
+      "sub": "Tread & riser finish",
+      "layers": [
+        "STAIR::layer11_FFL"
+      ],
+      "finish": "oak",
+      "grain": "radial",
+      "color": "#806149",
+      "roughness": 0.5,
+      "tier": 5,
+      "tbc": true,
+      "spec": "Timber-clad treads and risers, mitred at 45° so the grain runs continuously round the nosing; stain to match the timber flooring. Ref. 2401_700–702.",
+      "explode": {
+        "dir": "up",
+        "dist": 700
+      }
+    },
+    {
+      "id": "pb",
+      "name": "Plasterboard",
+      "sub": "9 mm, bonded & screwed",
+      "layers": [
+        "STAIR::layer9_PB"
+      ],
+      "finish": "plasterboard",
+      "color": "#a9a7ab",
+      "roughness": 0.86,
+      "hiddenWhenAssembled": true,
+      "tier": 3,
+      "spec": "9 mm plasterboard, bonded and screwed to the plywood (Detail 02).",
+      "assembledAs": "microcement",
+      "explode": {
+        "dir": "zone",
+        "dist": 1050
+      }
+    },
+    {
+      "id": "microcement",
+      "name": "Micro-cement",
+      "sub": "Topciment Natture, 3 mm",
+      "layers": [
+        "STAIR::layer12_Microcementfinish"
+      ],
+      "finish": "microcement",
+      "color": "#ebe7e0",
+      "roughness": 0.82,
+      "tier": 4,
+      "coat": true,
+      "tbc": true,
+      "spec": "Topciment Natture micro-cement, 3 mm. Both faces of the balustrade walls and the stair soffit. Light warm grey, matt, hand-trowelled, seamless. Colour TBC. Ref. 2401_700–705.",
+      "seamless": true,
+      "explode": {
+        "dir": "zone",
+        "dist": 1400
+      }
+    },
+    {
+      "id": "handrail",
+      "name": "Oak handrail",
+      "sub": "Solid oak, continuous",
+      "layers": [
+        "STAIR::layer14_handrail"
+      ],
+      "finish": "oak",
+      "grain": "tangential",
+      "color": "#806149",
+      "roughness": 0.45,
+      "tier": 6,
+      "spec": "Continuous solid oak handrail, centred on the balustrade wall. Ref. 2401_700–705.",
+      "explode": {
+        "dir": "up",
+        "dist": 1750
+      },
+      "mergeSides": true
+    }
+  ],
+  "_sequence": "Construction sequence (chapter 04 / Build sequence), one entry per step, in order. group/groups = stair group ids; include/exclude filter by blocks (Rhino block names), orientation (vertical | horizontal) or zone (soffit = under the flight, cap = on the wall heads, wall = wall panels). motion: appear (shown in place), drop (from above), rise (from below), slide (in from outside the stair), grow (revealed from the bottom up), coat (fades in place). seconds = step duration. camera: 'soffit' turns the camera to look up at the underside of the stair for that step. motion mitre: tread boards come down and riser boards come in from the front so the 45° mitred nosing is seen closing; camera 'mitre' = side view with the near wall hidden. corner: steel joints pushed diagonally into the step corner, one step at a time. fade: appears in place (large curved panels), one after another. hint: caption-only pause announcing the next trade. with: 'previous' runs at the same time as the step before (same caption) — large panels appear quietly while the small pre-blocked panels are placed. delay: seconds of pause before the step (e.g. while the camera turns).",
+  "sequence": [
+    {
+      "label": "Steel tread plates",
+      "group": "step",
+      "exclude": {
+        "blocks": [
+          "01",
+          "02"
+        ]
+      },
+      "motion": "appear",
+      "seconds": 1.6
+    },
+    {
+      "label": "Folded joints",
+      "group": "step",
+      "include": {
+        "blocks": [
+          "01",
+          "02"
+        ]
+      },
+      "motion": "corner",
+      "seconds": 6.0
+    },
+    {
+      "label": "Strings & supports",
+      "groups": [
+        "string",
+        "slabbase"
+      ],
+      "motion": "grow",
+      "seconds": 3.2
+    },
+    {
+      "label": "Steel columns",
+      "group": "posts",
+      "motion": "drop",
+      "seconds": 2.6
+    },
+    {
+      "label": "Timber battens",
+      "group": "timber",
+      "motion": "drop",
+      "seconds": 2.2
+    },
+    {
+      "label": "Tread plywood",
+      "group": "treadply",
+      "motion": "drop",
+      "seconds": 2.4
+    },
+    {
+      "label": "Plywood — pre-blocked panels",
+      "group": "ply",
+      "include": {
+        "blocks": [
+          "图块 06",
+          "图块 10",
+          "图块 13"
+        ]
+      },
+      "motion": "drop",
+      "seconds": 5.0
+    },
+    {
+      "label": "Plywood — wall panels",
+      "group": "ply",
+      "include": {
+        "zone": "wall"
+      },
+      "motion": "fade",
+      "with": "previous"
+    },
+    {
+      "label": "Soffit timber",
+      "group": "soffit",
+      "motion": "rise",
+      "seconds": 4.0,
+      "camera": "soffit"
+    },
+    {
+      "label": "Soffit plywood",
+      "group": "ply",
+      "include": {
+        "zone": "soffit"
+      },
+      "motion": "grow",
+      "seconds": 3.8,
+      "camera": "soffit"
+    },
+    {
+      "label": "Steel cap",
+      "group": "steelcap",
+      "motion": "drop",
+      "seconds": 1.8,
+      "delay": 2.6
+    },
+    {
+      "label": "Steel handrail",
+      "group": "railpost",
+      "motion": "drop",
+      "seconds": 1.8
+    },
+    {
+      "label": "Plywood capping",
+      "group": "ply",
+      "motion": "grow",
+      "seconds": 3.5
+    },
+    {
+      "label": "Timber tread finish",
+      "group": "tread",
+      "motion": "mitre",
+      "seconds": 14.0,
+      "camera": "mitre",
+      "delay": 4.5
+    },
+    {
+      "label": "Plasterboard",
+      "group": "pb",
+      "include": {
+        "blocks": [
+          "图块 05",
+          "图块 11",
+          "图块 14"
+        ]
+      },
+      "motion": "drop",
+      "seconds": 5.0,
+      "delay": 2.6
+    },
+    {
+      "label": "Plasterboard — large panels",
+      "group": "pb",
+      "exclude": {
+        "zone": "cap"
+      },
+      "motion": "fade",
+      "with": "previous"
+    },
+    {
+      "label": "Plasterboard capping",
+      "group": "pb",
+      "include": {
+        "zone": "cap"
+      },
+      "motion": "grow",
+      "seconds": 3.5
+    },
+    {
+      "label": "Oak handrail",
+      "group": "handrail",
+      "motion": "drop",
+      "seconds": 2.2
+    },
+    {
+      "label": "Finishing: micro-cement, trowelled on by hand",
+      "group": "microcement",
+      "motion": "grow",
+      "seconds": 5.0,
+      "hint": true
+    }
+  ],
+  "_contextLayers": "Everything that is not the stair. Shown in the 'With interior' mode and when 'Building' is on. inner = hidden by default. depthRank = draw order for surfaces that coincide (0 = in front), prevents flicker where floor layers share a plane. buried = covered by other finishes: skipped while the building fades in / out (semi-transparent stacked layers flicker).",
+  "contextLayers": {
+    "Architecture::Glass": {
+      "name": "Frameless glass balustrade",
+      "finish": "glass",
+      "color": "#cfe8e0",
+      "opacity": 0.16,
+      "tbc": true,
+      "spec": "Clear glass, concealed fixing: bolted to the slab edge at the base, handrail concealed on top. Standard float (green edge) or low-iron TBC. Ref. 2401_700, 702, 703 Detail 03, 705."
+    },
+    "Architecture::Floor_FFL": {
+      "name": "Timber flooring",
+      "finish": "floor",
+      "color": "#806149",
+      "roughness": 0.5,
+      "tbc": true,
+      "spec": "Long-board timber flooring, stain to match the treads. Species and format TBC.",
+      "depthRank": 0,
+      "band": 0.5
+    },
+    "Architecture::Floor_BuildUP": {
+      "name": "Floor build-up",
+      "finish": "plaster",
+      "color": "#9f9b95",
+      "spec": "Floor build-up: 17 mm finish, 83 mm heated screed, insulation (DC2 p.07, TBC).",
+      "depthRank": 3,
+      "buried": true,
+      "band": 2
+    },
+    "Architecture::Floor_Membrane": {
+      "name": "Waterproofing membrane",
+      "finish": "plain",
+      "color": "#3d4a52",
+      "inner": true,
+      "spec": "Waterproofing membrane under the basement floor (DC2 p.07).",
+      "depthRank": 6,
+      "buried": true,
+      "band": 3
+    },
+    "Architecture::Wall_FinishedFace": {
+      "name": "Basement walls & ceiling",
+      "finish": "room",
+      "color": "#d6d1c9",
+      "floorColor": "#806149",
+      "spec": "Painted walls and plasterboard ceiling, white matt.",
+      "depthRank": 2,
+      "band": 0.5
+    },
+    "Architecture::Wall_Building": {
+      "name": "Building walls",
+      "finish": "plaster",
+      "color": "#cbc6be",
+      "spec": "Painted walls, white matt.",
+      "depthRank": 4,
+      "band": 1
+    },
+    "Architecture::Balustrade_Finish": {
+      "name": "Slab-edge upstand",
+      "finish": "microcement",
+      "color": "#d7d1c7",
+      "roughness": 0.82,
+      "tbc": true,
+      "spec": "Solid upstand at the ground-floor slab edge incl. the U-shaped returns, micro-cement finish. Subcontract (Diaxis / main contractor) TBC.",
+      "band": 0.5
+    },
+    "Architecture::Balustrade_Handrail": {
+      "name": "Ground-floor handrail",
+      "finish": "oak",
+      "grain": "tangential",
+      "color": "#806149",
+      "roughness": 0.45,
+      "spec": "Oak handrail on the ground-floor upstand and glass balustrade.",
+      "band": 0.5
+    },
+    "Architecture::Balustrade_Frame": {
+      "name": "Slab-edge PFC frame",
+      "finish": "steel",
+      "color": "#4a5663",
+      "metalness": 0.35,
+      "roughness": 0.5,
+      "inner": true,
+      "tbc": true,
+      "spec": "PFC steel frame to the slab-edge upstand (Detail 02). Section 150×50 vs 50×100 TBC.",
+      "band": 4
+    },
+    "Architecture::Balustrade_PLY": {
+      "name": "Upstand plywood",
+      "finish": "ply",
+      "color": "#e9c4a9",
+      "inner": true,
+      "spec": "Plywood lining to the slab-edge upstand.",
+      "band": 2
+    },
+    "Architecture::Ceiling_PLY": {
+      "name": "Ceiling plywood",
+      "finish": "ply",
+      "color": "#e9c4a9",
+      "inner": true,
+      "spec": "Plywood to the ceiling / soffit at the slab edge.",
+      "band": 2
+    },
+    "Architecture::Slab": {
+      "name": "Concrete slab",
+      "finish": "concrete",
+      "color": "#8e8b86",
+      "spec": "200 mm concrete slab (DC2 p.08).",
+      "depthRank": 5,
+      "buried": true,
+      "band": 3
+    }
+  },
+  "_stairOnlyExclude": "Parts on stair layers that belong to the ground floor (upstand soffit, GF handrail, caps). They are hidden in 'Stair only' and fade in with the building. Matched by Rhino object id, or by bounding-box centre inside a box (Rhino coordinates, mm).",
+  "stairOnlyExclude": {
+    "ids": [
+      "e7049d47-5b1b-4423-9484-0b8eec564388"
+    ],
+    "boxes": []
+  },
+  "_explode": "Layers move as whole skins (no per-panel spread). Direction per part from its zone: under the flight → down, on the wall heads / treads → up, wall panels → sideways, each side away from the stair. Distance = layer depth (core stays).",
+  "explode": {
+    "panelGap": 0,
+    "verticalSpread": 0,
+    "shrink": 0
+  },
+  "objectOverrides": {},
+  "overrideLayers": {},
+  "_materials": ""
+}

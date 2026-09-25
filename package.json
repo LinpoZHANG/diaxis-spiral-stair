@@ -1,0 +1,25 @@
+{
+  "name": "stair3d-viewer",
+  "version": "1.0.0",
+  "description": "28 Stormont Road 螺旋楼梯 3D 查看器",
+  "scripts": {
+    "bake": "node scripts/bake-model.mjs",
+    "predev": "node scripts/bake-model.mjs --if-stale",
+    "dev": "vite",
+    "prebuild": "node scripts/bake-model.mjs --if-stale",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fontsource/jost": "^5.3.0",
+    "n8ao": "^1.10.3",
+    "postprocessing": "^6.39.5",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "vite": "^7.3.6",
+    "rhino3dm": "8.17"
+  },
+  "private": true
+}

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Spiral Stair · 28 Stormont Road</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%231c1c1a%22/%3E%3Cpath d=%22M9 24h5v-5h5v-5h5V9%22 stroke=%22%23e7743a%22 stroke-width=%222.4%22 fill=%22none%22/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="viewport"></div>
+      <div id="labels"></div>
+
+      <!-- Top bar -->
+      <header class="topbar">
+        <div class="brand">
+          <span class="wordmark">DIAXIS</span>
+          <span class="brand-sep"></span>
+          <span class="brand-proj"><b>Spiral Stair</b><small>28 Stormont Road · Basement — Ground Floor</small></span>
+        </div>
+      </header>
+
+      <!-- Build-up / layers -->
+      <aside class="panel left" id="panel-left">
+        <button class="panel-toggle" data-panel="panel-left" title="Show / hide layers"><span></span></button>
+        <div class="panel-body">
+          <!-- Stair only -->
+          <section data-show="stair">
+            <div class="panel-head">
+              <h2>Build-up</h2>
+              <span class="hint">Click a layer to isolate it</span>
+            </div>
+            <ol class="group-list" id="group-list"></ol>
+          </section>
+
+          <!-- With interior -->
+          <section data-show="context" hidden>
+            <div class="panel-head">
+              <h2>Layers</h2>
+              <span class="hint">Rhino layers</span>
+            </div>
+            <div class="row gap">
+              <button class="btn small" id="btn-all-on">Show all</button>
+              <button class="btn small ghost" id="btn-all-off">Hide all</button>
+            </div>
+            <ul class="layer-list" id="layer-list"></ul>
+          </section>
+        </div>
+      </aside>
+
+      <!-- Properties -->
+      <aside class="panel right" id="panel-right">
+        <div class="panel-body">
+          <div class="panel-head">
+            <h2>Properties</h2>
+            <button class="close" id="props-close" title="Close">×</button>
+            <span class="hint" id="mode-hint">View only</span>
+          </div>
+          <div id="props" class="props empty">
+            <p>Click a part of the model to see its layer, type and size.</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- View toolbar -->
+      <nav class="viewbar" aria-label="Tools">
+        <div class="features">
+          <button data-toggle="showcase" class="feat on" title="Play the full presentation loop">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span>Tour</span>
+          </button>
+          <button data-action="build" class="feat" title="Construction sequence, step by step">
+            <svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-4h4v-4h4V8h4V4"/></svg><span>Build</span>
+          </button>
+          <button data-toggle="section" class="feat" title="Rotating section through the stair axis">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v20"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none" opacity=".35"/></svg><span>Section</span>
+          </button>
+          <button data-action="explode" class="feat" title="Exploded view, panel by panel">
+            <svg viewBox="0 0 24 24"><path d="M5 17h14M7 12h10M9 7h6"/><path d="M12 2v2M12 20v2"/></svg><span>Explode</span>
+          </button>
+          <button data-toggle="walk" class="feat" title="Walk the stair at eye level">
+            <svg viewBox="0 0 24 24"><circle cx="13" cy="4.5" r="2"/><path d="M11 21l2-6-3-3 1-4 4 3 3 1M8 13l1-5M13 15l3 6"/></svg><span>Walk</span>
+          </button>
+        </div>
+        <i class="sep"></i>
+        <div class="minor">
+          <button data-view="home" title="Reset view"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></button>
+          <button data-view="top" title="Plan"><span class="glyph">▢</span><span>Plan</span></button>
+          <button data-view="under" title="Worm’s-eye view of the soffit"><span class="glyph">◠</span><span>Soffit</span></button>
+          <button data-toggle="building" title="Show / hide the building"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg><span>Building</span></button>
+          <button data-toggle="person" class="on" title="Scale figure"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M12 7.5v7M12 14.5l-3 6M12 14.5l3 6M7.5 10.5l4.5-1.5 4.5 1.5"/></svg><span>People</span></button>
+          <button data-toggle="night" title="Night: step lights and the backlit sign (bird's-eye and walk-through)"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span>Night</span></button>
+        </div>
+      </nav>
+
+      <!-- First-person HUD -->
+      <div id="fp-hud" hidden>
+        <div class="fp-row"><span class="fp-k">Eye level</span><span class="mono">1.60 m</span></div>
+        <div class="fp-row"><span class="fp-k">Lens</span><span class="mono" id="fp-lens">24 mm</span></div>
+        <div class="segmented small">
+          <button data-lens="18">18</button><button data-lens="24" class="active">24</button><button data-lens="35">35</button>
+        </div>
+        <div class="fp-hint">Drag to look around</div>
+        <button class="btn small ghost" id="fp-exit">Exit walk</button>
+      </div>
+
+      <!-- Section HUD -->
+      <div id="sec-hud" hidden>
+        <div class="fp-row"><span class="fp-k">Section</span><span class="mono" id="sec-angle">0°</span></div>
+        <div class="fp-hint">Vertical cut through the stair axis, sweeping round as you orbit</div>
+        <div class="row gap">
+          <button class="btn small ghost" id="sec-pause">Pause</button>
+          <button class="btn small ghost" id="sec-exit">Exit</button>
+        </div>
+      </div>
+
+      <!-- Build: installation process controls -->
+      <div id="build-hud" hidden>
+        <div class="bh-top">
+          <button class="bh-btn" id="bh-prev" title="Previous step"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <button class="bh-btn main" id="bh-play" title="Play / pause"><svg viewBox="0 0 24 24" id="bh-play-icon"><path d="M9 6v12M15 6v12"/></svg></button>
+          <button class="bh-btn" id="bh-next" title="Next step"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+          <div class="bh-label"><span class="mono" id="bh-num">Step 1 / 1</span><b id="bh-title">—</b></div>
+          <button class="close" id="bh-exit" title="Close">×</button>
+        </div>
+        <div class="bh-track" id="bh-track"><div class="bh-fill" id="bh-fill"></div><div class="bh-ticks" id="bh-ticks"></div><div class="bh-head" id="bh-head"></div></div>
+      </div>
+
+      <!-- Showcase caption -->
+      <div id="caption" hidden>
+        <div class="cap-kicker"><span id="cap-num">01</span><i></i><span id="cap-en">Context</span></div>
+        <div class="cap-title" id="cap-title">The stair in its setting</div>
+        <div class="cap-bar"><div id="cap-fill"></div></div>
+      </div>
+
+      <!-- Loader / title card -->
+      <div id="loader">
+        <div class="intro">
+          <div class="intro-mark" aria-label="DIAXIS"><span>D</span><span>I</span><span>A</span><span>X</span><span>I</span><span>S</span></div>
+          <div class="intro-rule"></div>
+          <div class="intro-project">www.diapo.co.uk</div>
+          <div class="intro-title">Spiral Stair — Basement to Ground Floor</div>
+          <div class="intro-load">
+            <div class="bar"><div class="bar-fill" id="bar-fill"></div></div>
+            <div class="loader-status"><span id="load-step">Preparing…</span><span class="mono" id="load-num"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="toast" hidden></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
