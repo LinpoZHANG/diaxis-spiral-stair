@@ -49,7 +49,7 @@ const state = {
   lens: 24, // mm (35 mm format)
   grid: false,
   rotate: true,
-  dark: store.get('theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') === 'dark',
+  dark: false, // always the light studio look (no theme switch; night is a separate mode)
 };
 
 const viewer = new Viewer($('#viewport'), $('#labels'));
@@ -76,7 +76,6 @@ function applyTheme() {
   document.documentElement.dataset.theme = state.dark ? 'dark' : 'light';
   viewer.setTheme(state.dark);
   if (model) model.setColorMode(state.color, state.dark);
-  store.set('theme', state.dark ? 'dark' : 'light');
 }
 applyTheme();
 // redraw the background once the brand font is available (canvas text needs the loaded face)
